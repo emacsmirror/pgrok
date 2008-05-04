@@ -30,7 +30,10 @@
 ;; variable `pgrok-project-file') in the same directory as the file
 ;; you are opening or an ancestor directory. It also contains some
 ;; functions for dealing with projects, using the directory where a
-;; project file was found as the project directory.
+;; project file was found as the project directory (see variable
+;; `pgrok-project-directory'). If you wish to customize the variable,
+;; you can do it in one of the project files, because they are
+;; evaluated after setting the variable.
 ;;
 ;; pgrok does not support nested projects.
 ;;
