@@ -95,10 +95,9 @@ should add this function to a mode hook or find-file-hook."
           (when mfile (load mfile)))))))
 
 (defun pgrok-find-dired (args)
-  "Run `find' and go into Dired mode on a buffer of the
-output. This is the same as `find-dired', except that instead of
-accepting a directory argument, `pgrok-project-directory' is
-used."
+  "Run `find' and go into Dired mode showing the output. This is
+the same as `find-dired', except that instead of accepting a
+directory argument, `pgrok-project-directory' is used."
   (interactive (list (read-string "Run find (with args): " find-args
 				  '(find-args-history . 1))))
   (find-dired pgrok-project-directory args))
@@ -122,3 +121,5 @@ is the same as `rgrep', except that it feeds in
 		(files (grep-read-files regexp)))
 	   (list regexp files))))))
    (rgrep regexp files pgrok-project-directory))
+
+(provide 'pgrok)
