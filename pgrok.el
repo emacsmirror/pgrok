@@ -6,6 +6,8 @@
 ;;   Free Software Foundation, Inc.
 
 ;; Author: Juri Pakaste <juri@iki.fi>
+;; Location: http://www.juripakaste.fi/pgrok/
+;; Version: 0.1
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
