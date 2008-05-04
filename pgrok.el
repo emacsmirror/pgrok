@@ -40,10 +40,8 @@
 ;; To use pgrok, add `pgrok-load-project-files' to `find-file-hook', a
 ;; major mode hook, or run `pgrok-load-project-files' by hand.
 ;;
-;; modified from Kai Großjohann's version at 
+;; Modified from Kai Großjohann's version at 
 ;; http://www.emacswiki.org/cgi-bin/wiki/ProjectSettings
-;;
-;; This file is not a part of 
 
 (defvar pgrok-project-file ".emacs-prj"
   "Name and prefix for project files.
