@@ -120,4 +120,9 @@ is the same as `rgrep', except that it feeds in
 	   (list regexp files))))))
    (rgrep regexp files pgrok-project-directory))
 
+(defun pgrok-dired ()
+  "Open the project directory in dired."
+  (interactive)
+  (dired pgrok-project-directory))
+
 (provide 'pgrok)
