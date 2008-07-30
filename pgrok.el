@@ -43,6 +43,8 @@
 ;; Modified from Kai Großjohann's version at 
 ;; http://www.emacswiki.org/cgi-bin/wiki/ProjectSettings
 
+(require 'find-dired)
+
 (defvar pgrok-project-file ".emacs-prj"
   "Name and prefix for project files.
 Emacs looks for file by this name loads it if it finds it in the
