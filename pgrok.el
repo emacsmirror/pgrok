@@ -6,7 +6,7 @@
 ;;   Free Software Foundation, Inc.
 
 ;; Author: Juri Pakaste <juri@iki.fi>
-;; Location: http://www.juripakaste.fi/pgrok/
+;; Location: https://launchpad.net/pgrok
 ;; Version: 0.1
 
 ;; This file is free software; you can redistribute it and/or modify
