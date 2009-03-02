@@ -1,6 +1,6 @@
 ;;; pgrok.el --- Project Grokking for Emacs
 
-;; Copyright (C) 2008  Juri Pakaste
+;; Copyright (C) 2008, 2009  Juri Pakaste
 ;; Copyright (C) 1985, 1986, 1987, 1993, 1994, 1995, 1996, 1997, 1998, 1999,
 ;;   2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008
 ;;   Free Software Foundation, Inc.
@@ -56,7 +56,9 @@ mode name, like .emacs-prj-python.
 The files must reside in the same directory. The first directory
 where either one is found is used.")
 
-(defvar pgrok-project-directory (expand-file-name "~")
+(defgroup pgrok nil "Customization for pgrok")
+
+(defvar pgrok-project-directory nil
   "The current project directory.")
 
 (make-variable-buffer-local 'pgrok-project-directory)
@@ -94,15 +96,26 @@ should add this function to a mode hook or find-file-hook."
           (when bfile (load bfile))
           (when mfile (load mfile)))))))
 
-(defun pgrok-find-dired (args)
+(defmacro pgrok-defprojfun (name args &rest body)
+  `(defun ,name ,args
+     ,(if (stringp (car body))
+          (let ((docstring (car body)))
+            (set 'body (cdr body))
+            docstring))
+     (unless pgrok-project-directory
+       (error "The variable pgrok-project-directory is not set but is required by the function %s" (quote ,name)))
+     ,@body))
+
+(pgrok-defprojfun pgrok-find-dired (args)
   "Run `find' and go into Dired mode showing the output. This is
 the same as `find-dired', except that instead of accepting a
 directory argument, `pgrok-project-directory' is used."
+  
   (interactive (list (read-string "Run find (with args): " find-args
 				  '(find-args-history . 1))))
   (find-dired pgrok-project-directory args))
 
-(defun pgrok-rgrep (regexp &optional files)
+(pgrok-defprojfun pgrok-rgrep (regexp &optional files)
   "Recursively grep for regexp in files in the project tree. This
 is the same as `rgrep', except that it feeds in
 `pgrok-project-directory' as the default directory."
@@ -122,7 +135,7 @@ is the same as `rgrep', except that it feeds in
 	   (list regexp files))))))
    (rgrep regexp files pgrok-project-directory))
 
-(defun pgrok-dired ()
+(pgrok-defprojfun pgrok-dired ()
   "Open the project directory in dired."
   (interactive)
   (dired pgrok-project-directory))
