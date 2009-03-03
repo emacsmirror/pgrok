@@ -61,7 +61,13 @@ where either one is found is used.")
 (defvar pgrok-project-directory nil
   "The current project directory.")
 
+(defvar pgrok-rgrep-files-aliases nil
+  "Grep file aliases specific to this project to use with `pgrok-rgrep'. 
+The contents of this alist are appended `grep-files-aliases' before 
+pgrok-rgrep calls `rgrep'.")
+
 (make-variable-buffer-local 'pgrok-project-directory)
+(make-variable-buffer-local 'pgrok-rgrep-files-aliases)
 
 (defun pgrok-find-project-file (dir mode-name)
   "Returns a three element list of (directory mode-specific-file
@@ -131,7 +137,10 @@ is the same as `rgrep', except that it feeds in
        (list nil nil
 	     (read-string "pgrok.el: No `grep-find-template' available. Press RET.")))
       (t (let* ((regexp (grep-read-regexp))
-		(files (grep-read-files regexp)))
+		(files 
+                 (let ((grep-files-aliases (append pgrok-rgrep-files-aliases 
+                                                   grep-files-aliases)))
+                   (grep-read-files regexp))))
 	   (list regexp files))))))
    (rgrep regexp files pgrok-project-directory))
 
